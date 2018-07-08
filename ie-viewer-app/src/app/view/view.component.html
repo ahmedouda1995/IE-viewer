@@ -1,0 +1,32 @@
+<div class="container mb-5">
+
+  <div class="row mb-3">
+    <button [disabled]="start" (click)="prevFile()" class="btn btn-lg btn-dark">
+      previous
+    </button>
+    <button [disabled]="end" (click)="nextFile()" class="btn btn-lg btn-dark ml-auto">
+      next
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <img *ngIf="url" [src]="url" class="img-fluid border">
+    </div>
+    <div class="col-md-6">
+    <table class="table table-bordered" *ngFor="let extractedTable of extractedTables; let i = index">
+     <thead class="bg-dark light">
+       <tr>
+         <th *ngFor="let headerName of extractedHeaders[i]">{{headerName}}</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let row of extractedTable">
+         <td *ngFor="let headerName of extractedHeaders[i]">{{row[headerName]}}</td>
+       </tr>
+     </tbody>
+   </table>
+    </div>
+  </div>
+
+</div>

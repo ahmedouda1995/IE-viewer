@@ -1,0 +1,25 @@
+<div class="container mb-3">
+  <!-- <input class="form-control" type="file" multiple (change)="detectFiles($event)"> -->
+
+
+  <div class="custom-file">
+    <input type="file" multiple class="custom-file-input" (change)="detectFiles($event)" id="customFile">
+    <label class="custom-file-label" for="customFile">Choose file</label>
+  </div>
+
+  <div *ngIf="uploadedFiles.length > 0" class="row float-right mt-3 mr-1">
+    <button class="btn btn-lg btn-dark" (click)="showExtraction()">
+      Tabular IE
+    </button>
+  </div>
+
+  <h3 class="mt-5">Uploaded files: {{ uploadedFiles.length }} items</h3>
+
+  <div>
+    <ul class="list-group">
+      <li *ngFor="let file of uploadedFiles" class="mt-2 list-group-item left-border">
+        {{ file.name }}
+      </li>
+    </ul>
+  </div>
+</div>
