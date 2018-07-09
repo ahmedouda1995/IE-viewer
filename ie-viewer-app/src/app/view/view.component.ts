@@ -13,6 +13,8 @@ export class ViewComponent implements OnInit {
   uploadedJsons: Array<any>;
   extractedHeaders: Array<any>;
   extractedTables: Array<any>;
+  fieldsHeaders: Array<any>;
+  extractedFields: Array<any>;
   currentIndex: number;
   start: boolean;
   end: boolean;
@@ -23,6 +25,8 @@ export class ViewComponent implements OnInit {
     this.uploadedJsons = [];
     this.extractedHeaders = [];
     this.extractedTables = [];
+    this.fieldsHeaders = ['fieldName', 'fieldProcessedValue', 'fieldRawValue'];
+    this.extractedFields = [];
   }
 
   ngOnInit() {
@@ -57,17 +61,21 @@ export class ViewComponent implements OnInit {
   handleJson(index: number) {
       this.extractedTables = [];
       this.extractedHeaders = [];
+      this.extractedFields = [];
       const reader = new FileReader();
       const curJsonFile = this.uploadedJsons[index];
       if (this.uploadedJsons && curJsonFile) {
         reader.onload = (event: any) => {
         const curJson = JSON.parse(event.target.result);
-        for (let i = 0; i < curJson.length; i++) {
-            const headerNames = this.getHeaderNames(curJson[i].headers);
-            const tableData = this.getTableData(headerNames, curJson[i].rows);
+        const tabularFields = curJson.tabularFields;
+        for (let i = 0; i < tabularFields.length; i++) {
+            const headerNames = this.getHeaderNames(tabularFields[i].headers);
+            const tableData = this.getTableData(headerNames, tabularFields[i].rows);
             this.extractedHeaders.push(headerNames);
             this.extractedTables.push(tableData);
         }
+        this.extractedFields = curJson.nonTabularFields;
+
       };
         reader.readAsText(curJsonFile);
       }

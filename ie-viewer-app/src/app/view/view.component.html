@@ -13,20 +13,36 @@
     <div class="col-md-6">
       <img *ngIf="url" [src]="url" class="img-fluid border">
     </div>
+
     <div class="col-md-6">
-    <table class="table table-bordered" *ngFor="let extractedTable of extractedTables; let i = index">
-     <thead class="bg-dark light">
-       <tr>
-         <th *ngFor="let headerName of extractedHeaders[i]">{{headerName}}</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr *ngFor="let row of extractedTable">
-         <td *ngFor="let headerName of extractedHeaders[i]">{{row[headerName]}}</td>
-       </tr>
-     </tbody>
-   </table>
+        <h4 class="padding-label"><span class="label label-default">Non-tabular Fields</span></h4>
+        <table class="table table-bordered">
+            <thead class="bg-secondary">
+                <tr>
+                    <th *ngFor="let headerName of fieldsHeaders">{{headerName}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of extractedFields">
+                    <td *ngFor="let headerName of fieldsHeaders">{{row[headerName]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <h4 class="padding-label"><span class="label label-default">Tabular Fields</span></h4>
+        <table class="table table-bordered" *ngFor="let extractedTable of extractedTables; let i = index">
+            <thead class="bg-dark light">
+                <tr>
+                    <th *ngFor="let headerName of extractedHeaders[i]">{{headerName}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of extractedTable">
+                    <td *ngFor="let headerName of extractedHeaders[i]">{{row[headerName]}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
+</div>
 
 </div>
